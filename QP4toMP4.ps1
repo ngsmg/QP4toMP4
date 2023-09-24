@@ -4,7 +4,52 @@
 #     ║ Feel free to make it better. ║
 #     ╚==============================╝
 
+#Unpack ffmpeg.exe if it hasn't been unpacked yet
+if(!(Test-Path "./ffmpeg.exe"))
+{
+    Write-Output "ffmpeg.exe kitömörítése...
+    
+    "
+    Expand-Archive .\ffmpeg.zip -DestinationPath .\
+    cls
+}
 
+Write-Output "   ____  _____  _  _     _          __  __ _____  _  _   
+  / __ \|  __ \| || |   | |        |  \/  |  __ \| || |  
+ | |  | | |__) | || |_  | |_ ___   | \  / | |__) | || |_ 
+ | |  | |  ___/|__   _| | __/ _ \  | |\/| |  ___/|__   _|
+ | |__| | |       | |   | || (_) | | |  | | |       | |  
+  \___\_\_|       |_|    \__\___/  |_|  |_|_|       |_|  
+ | |               /\                                    
+ | |__  _   _     /  \   _ __   __ _ _   _ ___           
+ | '_ \| | | |   / /\ \ | '_ \ / _` | | | / __|          
+ | |_) | |_| |  / ____ \| | | | (_| | |_| \__ \          
+ |_.__/ \__, | /_/    \_\_| |_|\__, |\__,_|___/          
+         __/ |                  __/ |                    
+        |___/                  |___/                     
+        
+        "
+
+#Check for source files to convert
+if(!(Test-Path "./matrix.qp4"))
+{
+    Write-Output "Nincs mit konvertálni, a matrix.qp4 fájl nem található.
+    
+    A konvertáláshoz helyezd az animációdat matrix.qp4 és a hozzá tartozó hangot matrix.mp3 néven ebbe a mappába!
+
+    "
+    pause
+    exit
+}
+
+if(!(Test-Path "./matrix.mp4"))
+{
+    Write-Output "Nem található a matrix.mp3 fájl. Az animáció konvertálásához másold ide a szükséges hanganyagot is ezen a néven!
+
+    "
+    pause
+    exit
+}
 
 Add-Type -Assembly System.Drawing
 
@@ -31,21 +76,6 @@ $ycoordsmap = 156,200,244,288,332,376,421,465,509,553,597,641,686
 [regex]$regex = 'frame'
 $howlong = $regex.matches($qp4).count
 
-Write-Output "   ____  _____  _  _     _          __  __ _____  _  _   
-  / __ \|  __ \| || |   | |        |  \/  |  __ \| || |  
- | |  | | |__) | || |_  | |_ ___   | \  / | |__) | || |_ 
- | |  | |  ___/|__   _| | __/ _ \  | |\/| |  ___/|__   _|
- | |__| | |       | |   | || (_) | | |  | | |       | |  
-  \___\_\_|       |_|    \__\___/  |_|  |_|_|       |_|  
- | |               /\                                    
- | |__  _   _     /  \   _ __   __ _ _   _ ___           
- | '_ \| | | |   / /\ \ | '_ \ / _` | | | / __|          
- | |_) | |_| |  / ____ \| | | | (_| | |_| \__ \          
- |_.__/ \__, | /_/    \_\_| |_|\__, |\__,_|___/          
-         __/ |                  __/ |                    
-        |___/                  |___/                     
-        
-        "
 if ($howlong -gt 300){
     Write-Output ("The conversion will take around " + $howlong + " seconds to finish. You'll have time to open a cold one...")
 }else{
