@@ -212,3 +212,10 @@ for($pina = 0;$pina -lt $frameindex;$pina++){
 }
 
 Write-Output All done.
+
+[System.Console]::Beep(1000,200)
+[System.Console]::Beep(2000,200)
+[System.Console]::Beep(4000,200)
+[System.Console]::Beep(8000,200)
+[System.Console]::Beep(16000,200)
+exit
